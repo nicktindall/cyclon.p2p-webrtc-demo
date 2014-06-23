@@ -1,0 +1,17 @@
+
+
+td.cacheLocation {
+    width: 25px;
+}
+
+td.cacheId {
+    font-family: monospace;
+}
+
+td.cacheAge {
+    text-align: center;
+}
+
+.mono {
+    font-family: monospace;
+}

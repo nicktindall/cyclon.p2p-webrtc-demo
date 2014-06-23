@@ -1,0 +1,117 @@
+<!doctype html>
+
+<html>
+<head>
+    <title>WebRTC Cyclon Demonstration</title>
+    <link href="flags/flags.css" rel="stylesheet" type="text/css"/>
+    <link href="styles/demostyles.css" rel="stylesheet" type="text/css"/>
+    <link href="styles/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <script src="thirdparty/adapter.js"></script>
+    <script src="cyclondemo.js"></script>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                    m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-11660982-5', 'cyclon-js-demo.herokuapp.com');
+        ga('send', 'pageview');
+    </script>
+</head>
+
+<body>
+
+<div class="container" ng-controller="DemoPageController">
+    <h2>WebRTC Cyclon Demonstration</h2>
+
+    <div class="alert alert-warning" ng-if="newerVersionDetected">
+        <strong>Newer Version Detected!</strong> Another client has reported they are running a newer version of the
+        Cyclon demo than you are.
+        (your version: {{ newerVersionDetected.localVersion }}, their version: {{ newerVersionDetected.remoteVersion }})<br/><br/>
+        Reloading in {{ newerVersionDetected.secondsTilReload }} seconds.
+    </div>
+    <br/>
+
+    <form class="form-horizontal" role="form">
+        <div class="form-group">
+            <label for="nodeIdField" class="col-sm-2 control-label">Local ID</label>
+
+            <div class="col-sm-5">
+                <input type="text" class="form-control mono" id="nodeIdField" value="{{ overlayNodeId }}"
+                       readonly="true"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="clientInfoField" class="col-sm-2 control-label">Client Info</label>
+
+            <div class="col-sm-5">
+                <input type="text" class="form-control mono" id="clientInfoField" ng-model="clientInfo"
+                       placeholder="Please Enter..." maxlength="30"/>
+            </div>
+        </div>
+    </form>
+
+
+
+    <div class="row">
+        <div class="col-sm-6">
+            <h3>Stats (last hour)</h3>
+            <table class="table">
+                <tr>
+                    <th></th>
+                    <th>Incoming</th>
+                    <th>Outgoing</th>
+                </tr>
+                <tr>
+                    <th>Successes</th>
+                    <td>{{ shuffleStats.incoming.successes }}</td>
+                    <td>{{ shuffleStats.outgoing.successes }}</td>
+                </tr>
+                <tr>
+                    <th>Errors</th>
+                    <td>{{ shuffleStats.incoming.errors }}</td>
+                    <td>{{ shuffleStats.outgoing.errors }}</td>
+                </tr>
+                <tr>
+                    <th>Timeouts</th>
+                    <td>{{ shuffleStats.incoming.timeouts }}</td>
+                    <td>{{ shuffleStats.outgoing.timeouts }}</td>
+                </tr>
+                <tr>
+                    <th>Unreachable peer</th>
+                    <td>N/A</td>
+                    <td>{{ shuffleStats.outgoing.unreachable }}</td>
+                </tr>
+                <tr class="active">
+                    <th>Total shuffles</th>
+                    <td>{{ shuffleStats.incoming.successes + shuffleStats.incoming.errors + shuffleStats.incoming.timeouts }}</td>
+                    <td>{{ shuffleStats.outgoing.successes + shuffleStats.outgoing.errors + shuffleStats.outgoing.timeouts + shuffleStats.outgoing.unreachable }}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-sm-6">
+            <h3>Info</h3>
+            <table class="table">
+                <tr><th>Last successful incoming shuffle</th><td>{{ lastSuccessfulIncomingShuffle | date:'medium' }}</td></tr>
+                <tr><th>Last successful outgoing shuffle</th><td>{{ lastSuccessfulOutgoingShuffle | date:'medium' }}</td></tr>
+                <tr><th>Last bootstrap attempt</th><td>{{ lastBootstrapAttempt | date:'medium' }}</td></tr>
+                <tr><th>Outgoing in progress</th><td>{{ shuffleStats.outgoing.outstanding }}</td></tr>
+                <tr><th>Incoming in progress</th><td>{{ shuffleStats.incoming.outstanding }}</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <h3>Cache contents</h3>
+
+    <cache-contents-table cache="cacheContents"/>
+</div>
+
+</body>
+</html>

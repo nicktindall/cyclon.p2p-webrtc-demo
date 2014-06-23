@@ -1,0 +1,46 @@
+{
+  "name": "cyclon.p2p-webrtc-client",
+  "version": "0.0.1",
+  "description": "An angular-based demonstration of the WebRTC implementation of the Cyclon framework",
+  "keywords": [
+    "webrtc",
+    "cyclon.p2p"
+  ],
+  "homepage": "https://gitub.com/nicktindall/cyclon-webrtc-demo/wiki",
+  "bugs": "https://github.com/nicktindall/cyclon-webrtc-demo/issues",
+  "license": "MIT",
+  "author": {
+    "name": "Nick Tindall",
+    "email": "nick@tindall.id.au",
+    "url": "http://www.tindall.id.au"
+  },
+  "contributors": [
+    {
+      "name": "Aaron Harwood",
+      "email": "aharwood@unimelb.edu.au"
+    }
+  ],
+  "main": "lib/builder.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nicktindall/cyclon-webrtc-demo.git"
+  },
+  "scripts": {
+    "test": "make test"
+  },
+  "devDependencies": {
+    "gulp": "3.8.x",
+    "gulp-browserify": "0.5.x",
+    "gulp-clean": "0.3.x",
+    "gulp-insert": "0.3.x",
+    "gulp-uglify": "0.3.x"
+  },
+  "dependencies": {
+    "angular": "1.2.x",
+    "bowser": "0.7.x",
+    "cyclon.p2p": "0.0.1",
+    "cyclon.p2p-webrtc-client": "0.0.1",
+    "express": "4.4.x",
+    "gauss": "0.2.x"
+  }
+}
