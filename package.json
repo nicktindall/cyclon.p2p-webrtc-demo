@@ -43,5 +43,8 @@
     "cyclon.p2p-webrtc-client": "0.0.x",
     "express": "4.4.x",
     "gauss": "0.2.x"
+  },
+  "engines": {
+    "node": "0.10.x"
   }
 }
