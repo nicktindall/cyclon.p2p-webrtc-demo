@@ -26,6 +26,7 @@ function OverlayService($log, $rootScope, guidService, frontendVersionService, l
                         .withStorage(sessionStorage)
                         .withMetadataProviders(metadataProviders)
                         .withRTCObjectFactory(new cyclonWebRtc.AdapterJsRTCObjectFactory())
+                        .withSignallingServers(JSON.parse('/* @echo SIGNALLING_SERVERS */'))
                         .build();
     
     var neighbourSet = cyclonNode.getNeighbourSet();

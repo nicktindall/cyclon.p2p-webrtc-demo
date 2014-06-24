@@ -1,0 +1,18 @@
+[{
+    "socket": {
+        "server": "http://cyclon-js-ss-one.herokuapp.com"
+    },
+    "signallingApiBase": "http://cyclon-js-ss-one.herokuapp.com"
+},
+{
+    "socket": {
+        "server": "http://cyclon-js-ss-two.herokuapp.com"
+    },
+    "signallingApiBase": "http://cyclon-js-ss-two.herokuapp.com"
+},
+{
+    "socket": {
+        "server": "http://cyclon-js-ss-three.herokuapp.com"
+    },
+    "signallingApiBase": "http://cyclon-js-ss-three.herokuapp.com"
+}]

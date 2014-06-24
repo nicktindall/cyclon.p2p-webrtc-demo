@@ -33,13 +33,14 @@
     "gulp-browserify": "0.5.x",
     "gulp-clean": "0.3.x",
     "gulp-insert": "0.3.x",
+    "gulp-preprocess": "1.1.x",
     "gulp-uglify": "0.3.x"
   },
   "dependencies": {
     "angular": "1.2.x",
     "bowser": "0.7.x",
-    "cyclon.p2p": "0.0.1",
-    "cyclon.p2p-webrtc-client": "0.0.1",
+    "cyclon.p2p": "0.0.x",
+    "cyclon.p2p-webrtc-client": "0.0.x",
     "express": "4.4.x",
     "gauss": "0.2.x"
   }

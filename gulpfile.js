@@ -2,10 +2,13 @@ var gulp = require('gulp');
 var browserify = require('gulp-browserify');
 var uglify = require('gulp-uglify');
 var clean = require('gulp-clean');
-var insert = require("gulp-insert");
+var insert = require('gulp-insert');
+var preprocess = require('gulp-preprocess');
+var fs = require('fs');
 
 var DIST = "./dist";
 var DIST_SRC = "./dist/source";
+var signallingServerArray = JSON.stringify(JSON.parse(fs.readFileSync('./localsignalling.json')));
 
 gulp.task('clean', function() {
     return gulp.src(DIST).pipe(clean());
@@ -24,22 +27,31 @@ function copyStaticFilesTo(dest) {
         .pipe(gulp.dest(dest));
 }
 
-gulp.task("script", ["static"], function() {
+function generateMinifiedScript() {
     return gulp.src("app/scripts/cyclondemo.js")
         .pipe(browserify())
+        .pipe(preprocess({context: {SIGNALLING_SERVERS: signallingServerArray}}))
         .pipe(uglify())
         .pipe(insert.prepend("/**\n\tWebRTC Cyclon Demo\n\tCopyright 2014, Nick Tindall\n*/\n"))
         .pipe(gulp.dest(DIST));
-});
+}
 
-gulp.task('script_src', ["static_src"], function() {
+function generateScript() {
     return gulp.src("app/scripts/cyclondemo.js")
         .pipe(browserify())
+        .pipe(preprocess({context: {SIGNALLING_SERVERS: signallingServerArray}}))
         .pipe(gulp.dest(DIST_SRC));
-});
+}
 
-gulp.task('heroku:production', ['default']);
+gulp.task('heroku:production', ['static_src', 'static'], function() {
+    signallingServerArray = JSON.stringify(JSON.parse(fs.readFileSync('./herokusignalling.json')));
+    generateScript();
+    generateMinifiedScript();
+});
 
 gulp.task('quality', ['lint', 'test']);
 
-gulp.task('default', ['script', 'script_src']);
+gulp.task('default', ['static_src', 'static'], function() {
+    generateScript();
+    generateMinifiedScript();
+});
