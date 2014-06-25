@@ -7,7 +7,7 @@
  */
 function FrontendVersionService() {
 
-    var CURRENT_VERSION = 26;
+    var CURRENT_VERSION = 27;
 
     return {
         getVersion: function() {
