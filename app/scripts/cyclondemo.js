@@ -29,7 +29,7 @@ appModule.factory("LocationProviderService", ["$log", "$http", LocationProviderS
 appModule.factory("PlatformDetectionService", PlatformDetectionService);
 appModule.factory("ClientInfoService", ClientInfoService);
 appModule.directive("cacheContentsTable", CacheContentsTable);
-appModule.controller("DemoPageController", ['$interval', '$log', '$scope', "OverlayService", "ClientInfoService", DemoPageController]);
+appModule.controller("DemoPageController", ['$http', '$interval', '$log', '$scope', "OverlayService", "ClientInfoService", DemoPageController]);
 appModule.controller("LocalSimulationController", ['LocalSimulationService', LocalSimulationController]);
 
 angular.element(document).ready(function() {

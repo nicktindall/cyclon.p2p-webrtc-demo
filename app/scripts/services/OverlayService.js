@@ -126,6 +126,10 @@ function OverlayService($log, $rootScope, guidService, frontendVersionService, l
 
         getCacheContents: function () {
             return neighbourSet.getContents();
+        },
+
+        getCyclonNode: function() {
+            return cyclonNode;
         }
     };
 }
