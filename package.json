@@ -1,5 +1,5 @@
 {
-  "name": "cyclon.p2p-webrtc-client",
+  "name": "cyclon.p2p-webrtc-demo",
   "version": "0.0.1",
   "description": "An angular-based demonstration of the WebRTC implementation of the Cyclon framework",
   "keywords": [
@@ -39,8 +39,8 @@
   "dependencies": {
     "angular": "1.2.x",
     "bowser": "0.7.x",
-    "cyclon.p2p": "0.0.4",
-    "cyclon.p2p-webrtc-client": "0.0.6",
+    "cyclon.p2p": "0.0.x",
+    "cyclon.p2p-webrtc-client": "0.0.x",
     "events": "1.0.x",
     "express": "4.4.x",
     "gauss": "0.2.x"
