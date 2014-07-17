@@ -1,7 +1,6 @@
 'use strict';
 
-var cyclonWebRtc = require("cyclon.p2p-webrtc-client");
-var rtc = require("cyclon.p2p-rtc");
+var cyclonWebRtc = require("cyclon.p2p-rtc-comms");
 var Utils = require("cyclon.p2p").Utils;
 
 function OverlayService($log, $rootScope, guidService, frontendVersionService, locationProviderService, platformDetectionService, clientInfoService, shuffleStatsService) {
@@ -22,7 +21,7 @@ function OverlayService($log, $rootScope, guidService, frontendVersionService, l
 
     var id = getId();
     var cyclonNode = cyclonWebRtc.create(id, $log, metadataProviders, JSON.parse('/* @echo SIGNALLING_SERVERS */'));
-    
+
     var neighbourSet = cyclonNode.getNeighbourSet();
 
     setupNeighbourCacheSessionPersistence(neighbourSet);
@@ -129,4 +128,3 @@ function OverlayService($log, $rootScope, guidService, frontendVersionService, l
 }
 
 module.exports = OverlayService;
-

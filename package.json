@@ -6,8 +6,8 @@
     "webrtc",
     "cyclon.p2p"
   ],
-  "homepage": "https://gitub.com/nicktindall/cyclon-webrtc-demo/wiki",
-  "bugs": "https://github.com/nicktindall/cyclon-webrtc-demo/issues",
+  "homepage": "https://gitub.com/nicktindall/cyclon.p2p-webrtc-demo/wiki",
+  "bugs": "https://github.com/nicktindall/cyclon.p2p-webrtc-demo/issues",
   "license": "MIT",
   "author": {
     "name": "Nick Tindall",
@@ -20,10 +20,9 @@
       "email": "aharwood@unimelb.edu.au"
     }
   ],
-  "main": "lib/builder.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/nicktindall/cyclon-webrtc-demo.git"
+    "url": "https://github.com/nicktindall/cyclon.p2p-webrtc-demo.git"
   },
   "scripts": {
     "test": "make test"
@@ -40,7 +39,7 @@
     "angular": "1.2.x",
     "bowser": "0.7.x",
     "cyclon.p2p": "0.0.x",
-    "cyclon.p2p-webrtc-client": "0.0.x",
+    "cyclon.p2p-rtc-comms": "0.0.x",
     "events": "1.0.x",
     "express": "4.4.x",
     "gauss": "0.2.x"
