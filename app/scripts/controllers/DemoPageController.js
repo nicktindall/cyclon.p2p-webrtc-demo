@@ -3,7 +3,7 @@
 var SECONDS_BEFORE_RELOAD = 30;
 var REPORTING_INTERVAL_MS = 1000 * 60 * 2;
 
-function DemoPageController($http, $interval, $log, $scope, OverlayService, ClientInfoService) {
+function DemoPageController($http, $interval, $log, $scope, OverlayService, ClientInfoService, VersionCheckService) {
 
     $scope.clientInfo = ClientInfoService.getClientInfo();
     if ($scope.clientInfo === null) {
@@ -67,13 +67,11 @@ function DemoPageController($http, $interval, $log, $scope, OverlayService, Clie
             return;
         }
 
-        $scope.$apply(function () {
-            $scope.newerVersionDetected = {
-                localVersion: localVersion,
-                remoteVersion: remoteVersion,
-                secondsTilReload: SECONDS_BEFORE_RELOAD
-            };
-        });
+        $scope.newerVersionDetected = {
+            localVersion: localVersion,
+            remoteVersion: remoteVersion,
+            secondsTilReload: SECONDS_BEFORE_RELOAD
+        };
 
         //
         // Reload in SECONDS_BEFORE_RELOAD seconds

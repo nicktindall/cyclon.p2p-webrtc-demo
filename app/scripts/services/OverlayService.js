@@ -43,18 +43,6 @@ function OverlayService($log, $rootScope, guidService, frontendVersionService, l
 
     function advertiseCacheChange(type, node) {
         $rootScope.$broadcast("cacheContentsChanged", neighbourSet.getContents());
-
-        /**
-         * On adds, check whether the remote client is using
-         * a newer version of the frontend
-         */
-        if (type === "insert") {
-            var remoteVersion = node.metadata.frontendVersion;
-            var localVersion = frontendVersionService.getVersion();
-            if (remoteVersion > localVersion) {
-                $rootScope.$broadcast("newerVersionDetected", localVersion, remoteVersion);
-            }
-        }
     }
 
     /**

@@ -2,6 +2,7 @@
 
 var http = require("http");
 var express = require("express");
+var appMetadata = require("./AppMetadata");
 
 var DEFAULT_PORT = 2222;
 
@@ -9,6 +10,12 @@ var app = express();
 
 // Serve static content
 app.use(express.static("./dist"));
+
+// Serve the deployed version number
+app.get("/version", function(req, res) {
+    res.header("Content-Type", "application/json")
+    res.send(200, appMetadata);
+});
 
 //
 // Allow CORS for all resources

@@ -1,5 +1,7 @@
 'use strict';
 
+var currentVersion = require("../../../AppMetadata").FRONTEND_VERSION;
+
 /**
  * This is where we store the current version number
  * of the client, it's used so nodes can detect when
@@ -7,11 +9,9 @@
  */
 function FrontendVersionService() {
 
-    var CURRENT_VERSION = 27;
-
     return {
         getVersion: function() {
-            return CURRENT_VERSION;
+            return currentVersion;
         }
     };
 }

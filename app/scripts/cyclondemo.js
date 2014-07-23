@@ -15,6 +15,7 @@ var ClientInfoService = require("./services/ClientInfoService");
 var ShuffleStatsService = require("./services/ShuffleStatsService");
 var IncomingSuccessRateFilter = require("./filters/IncomingSuccessRateFilter");
 var OutgoingSuccessRateFilter = require("./filters/OutgoingSuccessRateFilter");
+var VersionCheckService = require("./services/VersionCheckService");
 
 var appModule = angular.module("cyclon-demo", []);
 
@@ -28,8 +29,9 @@ appModule.factory("LocalSimulationService", ['$log', '$interval', LocalSimulatio
 appModule.factory("LocationProviderService", ["$log", "$http", LocationProviderService]);
 appModule.factory("PlatformDetectionService", PlatformDetectionService);
 appModule.factory("ClientInfoService", ClientInfoService);
+appModule.factory("VersionCheckService", ["$rootScope", "$interval", "$http", "$log", "FrontendVersionService", VersionCheckService])
 appModule.directive("cacheContentsTable", CacheContentsTable);
-appModule.controller("DemoPageController", ['$http', '$interval', '$log', '$scope', "OverlayService", "ClientInfoService", DemoPageController]);
+appModule.controller("DemoPageController", ['$http', '$interval', '$log', '$scope', "OverlayService", "ClientInfoService", "VersionCheckService", DemoPageController]);
 appModule.controller("LocalSimulationController", ['LocalSimulationService', LocalSimulationController]);
 
 angular.element(document).ready(function() {
