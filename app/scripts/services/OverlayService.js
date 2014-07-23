@@ -7,8 +7,8 @@ function OverlayService($log, $rootScope, guidService, frontendVersionService, l
 
     Utils.checkArguments(arguments, 8);
 
-    var CACHE_SIZE = 50,
-        SHUFFLE_LENGTH = 10,
+    var CACHE_SIZE = 20,
+        SHUFFLE_LENGTH = 5,
         TICK_INTERVAL_MS = 30000;
 
     var metadataProviders = {
