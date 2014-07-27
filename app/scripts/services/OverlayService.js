@@ -2,7 +2,6 @@
 
 var cyclonWebRtc = require("cyclon.p2p-rtc-comms");
 var Utils = require("cyclon.p2p-common");
-var AppMetadata = require("../../../AppMetadata");
 
 function OverlayService($log, $rootScope, guidService, frontendVersionService, locationProviderService, platformDetectionService, clientInfoService, shuffleStatsService) {
 
@@ -16,7 +15,7 @@ function OverlayService($log, $rootScope, guidService, frontendVersionService, l
         "clientInfo": clientInfoService.getClientInfo
     };
 
-    var cyclonNode = cyclonWebRtc.create($log, metadataProviders, AppMetadata.SIGNALLING_SERVERS);
+    var cyclonNode = cyclonWebRtc.create($log, metadataProviders, JSON.parse('/* @echo SIGNALLING_SERVERS */'));
     var id = cyclonNode.getId();
 
     var neighbourSet = cyclonNode.getNeighbourSet();

@@ -4,7 +4,6 @@ var TEST_CHANNEL_TYPE = "testChannel";
 
 var rtc = require("cyclon.p2p-rtc-client");
 var Utils = require("cyclon.p2p-common");
-var AppMetadata = require("../../../AppMetadata");
 
 function RTCService($log) {
 
@@ -12,7 +11,7 @@ function RTCService($log) {
     var timingService = new rtc.TimingService();
 
     var redundantSignallingSocket = new rtc.RedundantSignallingSocket(
-        new rtc.StaticSignallingServerService(AppMetadata.SIGNALLING_SERVERS),
+        new rtc.StaticSignallingServerService(JSON.parse('/* @echo SIGNALLING_SERVERS */')),
         new rtc.SocketFactory(),
         $log,
         asyncExecService,
