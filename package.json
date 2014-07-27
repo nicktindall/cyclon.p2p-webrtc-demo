@@ -38,9 +38,9 @@
   "dependencies": {
     "angular": "1.2.x",
     "bowser": "0.7.x",
-    "cyclon.p2p": "0.1.0",
+    "cyclon.p2p": "0.1.1",
     "cyclon.p2p-common": "0.0.1",
-    "cyclon.p2p-rtc-comms": "0.1.1",
+    "cyclon.p2p-rtc-comms": "0.1.2",
     "events": "1.0.x",
     "express": "4.4.x",
     "gauss": "0.2.x"
