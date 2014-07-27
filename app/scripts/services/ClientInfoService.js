@@ -3,18 +3,9 @@
 function ClientInfoService() {
 
     var infoKey = "cyclonDemoClientInfo";
-    var idKey = "cyclonDemoClientId";
     var neighbourCacheKey = "cyclonDemoNeighbourCacheKey";
 
     return {
-
-        getClientId: function() {
-            return sessionStorage.getItem(idKey);
-        },
-
-        setClientId: function(value) {
-            sessionStorage.setItem(idKey, value);
-        },
 
         getClientInfo: function () {
             return sessionStorage.getItem(infoKey);

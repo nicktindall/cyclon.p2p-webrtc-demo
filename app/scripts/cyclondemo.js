@@ -16,6 +16,8 @@ var ShuffleStatsService = require("./services/ShuffleStatsService");
 var IncomingSuccessRateFilter = require("./filters/IncomingSuccessRateFilter");
 var OutgoingSuccessRateFilter = require("./filters/OutgoingSuccessRateFilter");
 var VersionCheckService = require("./services/VersionCheckService");
+var RTCService = require("./services/RTCService");
+var ConnectivityTestController = require("./controllers/ConnectivityTestController");
 
 var appModule = angular.module("cyclon-demo", []);
 
@@ -29,10 +31,13 @@ appModule.factory("LocalSimulationService", ['$log', '$interval', LocalSimulatio
 appModule.factory("LocationProviderService", ["$log", "$http", LocationProviderService]);
 appModule.factory("PlatformDetectionService", PlatformDetectionService);
 appModule.factory("ClientInfoService", ClientInfoService);
-appModule.factory("VersionCheckService", ["$rootScope", "$interval", "$http", "$log", "FrontendVersionService", VersionCheckService])
+appModule.factory("VersionCheckService", ["$rootScope", "$interval", "$http", "$log", "FrontendVersionService", VersionCheckService]);
+appModule.factory("RTCService", ["$log", RTCService]);
+
 appModule.directive("cacheContentsTable", CacheContentsTable);
 appModule.controller("DemoPageController", ['$http', '$interval', '$log', '$scope', "OverlayService", "ClientInfoService", "VersionCheckService", DemoPageController]);
 appModule.controller("LocalSimulationController", ['LocalSimulationService', LocalSimulationController]);
+appModule.controller("ConnectivityTestController", ["$timeout", "$scope", "RTCService", ConnectivityTestController]);
 
 angular.element(document).ready(function() {
     angular.bootstrap(document, ['cyclon-demo']);

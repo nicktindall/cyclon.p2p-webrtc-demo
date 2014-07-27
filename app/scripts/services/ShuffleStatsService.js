@@ -1,6 +1,6 @@
 "use strict";
 
-var Utils = require("cyclon.p2p").Utils;
+var Utils = require("cyclon.p2p-common");
 
 var ONE_HOUR_IN_MS = 1000 * 60 * 60;
 

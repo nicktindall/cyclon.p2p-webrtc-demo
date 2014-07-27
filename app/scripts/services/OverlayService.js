@@ -1,15 +1,12 @@
 'use strict';
 
 var cyclonWebRtc = require("cyclon.p2p-rtc-comms");
-var Utils = require("cyclon.p2p").Utils;
+var Utils = require("cyclon.p2p-common");
+var AppMetadata = require("../../../AppMetadata");
 
 function OverlayService($log, $rootScope, guidService, frontendVersionService, locationProviderService, platformDetectionService, clientInfoService, shuffleStatsService) {
 
     Utils.checkArguments(arguments, 8);
-
-    var CACHE_SIZE = 20,
-        SHUFFLE_LENGTH = 5,
-        TICK_INTERVAL_MS = 30000;
 
     var metadataProviders = {
         "location": locationProviderService.getLocation,
@@ -19,8 +16,8 @@ function OverlayService($log, $rootScope, guidService, frontendVersionService, l
         "clientInfo": clientInfoService.getClientInfo
     };
 
-    var id = getId();
-    var cyclonNode = cyclonWebRtc.create(id, $log, metadataProviders, JSON.parse('/* @echo SIGNALLING_SERVERS */'));
+    var cyclonNode = cyclonWebRtc.create($log, metadataProviders, AppMetadata.SIGNALLING_SERVERS);
+    var id = cyclonNode.getId();
 
     var neighbourSet = cyclonNode.getNeighbourSet();
 
@@ -74,22 +71,6 @@ function OverlayService($log, $rootScope, guidService, frontendVersionService, l
         neighbourSet.on("change", function () {
             clientInfoService.setStoredNeighbourCache(neighbourSet.getContents());
         });
-    }
-
-    /**
-     * Get the client ID, checking first for a persisted ID in the session
-     */
-    function getId() {
-        var id = null;
-        var clientInfo = clientInfoService.getClientId();
-        if (clientInfo !== null) {
-            id = clientInfo;
-        }
-        else {
-            id = guidService();
-            clientInfoService.setClientId(id);
-        }
-        return id;
     }
 
     return {

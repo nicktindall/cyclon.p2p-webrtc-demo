@@ -2,30 +2,33 @@
 
 var gauss = require("gauss");
 var cyclon = require("cyclon.p2p");
+var Utils = require("cyclon.p2p-common");
 
 /**
  * Starts a local simulation
  */
 function LocalSimulationService($log, $interval) {
 
-    function startSimulation(numNodes, cacheSize, shuffleLength, tickIntervalMs) {
-        var localComms = new cyclon.LocalComms();
-        var localBootstrapper = new cyclon.LocalBootstrapper(numNodes);
-        var asyncExecService = new cyclon.AsyncExecService();
+    function startSimulation (numNodes, cacheSize, shuffleLength, tickIntervalMs) {
+        var allNodes = {};
+        var localBootstrap = new cyclon.LocalBootstrap(numNodes);
+        var asyncExecService = Utils.asyncExecService();
         var nodes = [];
         var neighbourSets = [];
         var round = 0;
 
-        var loggingService = new cyclon.ConsoleLogger();
-
         for (var nodeId = 0; nodeId < numNodes; nodeId++) {
-            var neighbourSet = new cyclon.NeighbourSet($log);
-            var cyclonNode = new cyclon.builder(id, localComms, localBootstrap)
-                                .withLogger($log)
-                                .withAsyncExecService(asyncExecService);
+            var localComms = new cyclon.LocalComms(nodeId, allNodes);
+            var cyclonNode = new cyclon.builder(localComms, localBootstrap)
+                .withLogger($log)
+                .withNumNeighbours(cacheSize)
+                .withShuffleSize(shuffleLength)
+                .withAsyncExecService(asyncExecService)
+                .withTickIntervalMs(tickIntervalMs)
+                .build();
 
             nodes.push(cyclonNode);
-            neighbourSets.push(neighbourSet);
+            neighbourSets.push(cyclonNode.getNeighbourSet());
         }
 
         /**
@@ -45,15 +48,14 @@ function LocalSimulationService($log, $interval) {
          *
          * @returns {number}
          */
-        function printNetworkStatistics() {
+        function printNetworkStatistics () {
             var counts = {};
-            var allIds = localComms.getAllIds();
 
             neighbourSets.forEach(function (neighbourSet) {
-                allIds.forEach(function (id) {
+                for(var id in allNodes) {
                     var increment = neighbourSet.contains(id) ? 1 : 0;
                     counts[id] = counts[id] === undefined ? increment : counts[id] + increment;
-                });
+                }
             });
 
             var countsArray = [];

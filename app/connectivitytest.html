@@ -1,0 +1,54 @@
+<!doctype html>
+
+<html>
+<head>
+    <title>WebRTC Cyclon Connectivity Test</title>
+    <link href="flags/flags.css" rel="stylesheet" type="text/css"/>
+    <link href="styles/demostyles.css" rel="stylesheet" type="text/css"/>
+    <link href="styles/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <script src="thirdparty/adapter.js"></script>
+    <script src="cyclondemo.js"></script>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                    m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-11660982-5', 'cyclon-js-demo.herokuapp.com');
+        ga('send', 'pageview');
+    </script>
+</head>
+
+<body>
+
+<div class="container" ng-controller="ConnectivityTestController">
+    <h2>WebRTC Connectivity Check</h2>
+
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div width="100%">
+                <h3>Local Pointer</h3>
+                <textarea type="text" cols="30" rows="5" readonly="readonly">{{ localPointer }}</textarea>
+            </div>
+
+            <div width="100%">
+                <h3>Remote Pointer</h3>
+                <textarea type="text" cols="30" rows="5" ng-model="remotePointer"></textarea>
+            </div>
+
+            <button ng-click="connectTo()">Connect...</button>&nbsp;<button ng-click="refreshLocalPointer()">Refresh local</button>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
