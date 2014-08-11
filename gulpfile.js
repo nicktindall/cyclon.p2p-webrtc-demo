@@ -23,7 +23,7 @@ gulp.task('static_src', ['clean'], function() {
 });
 
 function copyStaticFilesTo(dest) {
-	return gulp.src(['app/thirdparty/**', 'app/views/**', 'app/flags/**', 'app/styles/**', 'app/fonts/**', "app/*.html"], {base: 'app'})
+	return gulp.src(['app/thirdparty/**', 'app/views/**', 'app/flags/**', 'app/styles/**', 'app/fonts/**', "app/*.html", "app/favicon.ico"], {base: 'app'})
         .pipe(gulp.dest(dest));
 }
 
