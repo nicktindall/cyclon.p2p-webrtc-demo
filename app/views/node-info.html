@@ -1,0 +1,5 @@
+<div class="mono">
+    <img src="flags/blank.gif" data-html="true" popover-trigger="mouseenter" class="flag flag-{{ node.metadata.location.country_code | lowercase }}"/>
+    {{ node | idOrInfo }}
+    <span class="glyphicon glyphicon-info-sign" tooltip-html-unsafe="{{ node.id }}<br /><br />{{ node.metadata.platform && (node.metadata.platform.name + ' ' + node.metadata.platform.version + ' (' + node.metadata.platform.os + ')') }}<br />Incoming Success: {{ node.metadata.shuffleStats | incomingSuccessRate }}<br />Outgoing Success: {{ node.metadata.shuffleStats | outgoingSuccessRate }}<br />Version: {{ node.metadata.frontendVersion }}"></span>
+</div>

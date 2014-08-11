@@ -32,7 +32,7 @@ function RTCService($log) {
             asyncExecService,
             new rtc.PeerConnectionFactory(
                 timingService,
-                new rtc.AdapterJsRTCObjectFactory(),
+                new rtc.AdapterJsRTCObjectFactory(logger),
                 asyncExecService,
                 $log),
             signallingService,

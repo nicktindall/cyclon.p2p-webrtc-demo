@@ -3,7 +3,7 @@
 var SECONDS_BEFORE_RELOAD = 30;
 var REPORTING_INTERVAL_MS = 1000 * 60 * 2;
 
-function DemoPageController($http, $interval, $log, $scope, OverlayService, ClientInfoService, VersionCheckService) {
+function DemoPageController($http, $interval, $log, $scope, OverlayService, ClientInfoService, VersionCheckService, RankingService) {
 
     $scope.clientInfo = ClientInfoService.getClientInfo();
     if ($scope.clientInfo === null) {
@@ -32,6 +32,16 @@ function DemoPageController($http, $interval, $log, $scope, OverlayService, Clie
         }
     };
     $scope.cacheContents = OverlayService.getCacheContents();
+
+    /**
+     * Determine if we're running in a supported browser
+     */
+    if(RTCPeerConnection) {
+        $scope.browserIsUnsupported = false;
+    }
+    else {
+        $scope.browserIsUnsupported = true;
+    }
 
     /**
      * Listen for cache contents changes
@@ -89,10 +99,14 @@ function DemoPageController($http, $interval, $log, $scope, OverlayService, Clie
         });
     });
 
-    $scope.$on("statsChanged", function(event, newStats) {
-        $scope.$apply(function() {
+    $scope.$on("statsChanged", function (event, newStats) {
+        $scope.$apply(function () {
             $scope.shuffleStats = newStats;
         });
+    });
+
+    $scope.$on("rankingsUpdated", function(event, rankings) {
+        $scope.topNodes = rankings;
     });
 
     /**
@@ -102,27 +116,30 @@ function DemoPageController($http, $interval, $log, $scope, OverlayService, Clie
         ClientInfoService.setClientInfo(newValue);
     });
 
-    /**
-     * Start the overlay
-     */
-    $log.info("Cyclon demo starting...");
-    OverlayService.start();
 
-    /**
-     * Periodically publish the local node state (for analysis)
-     */
-    $interval(function() {
-        $http.post('http://cyclon-datastore.appspot.com/dumpstats', {
-            neighbours: $scope.cacheContents,
-            node: OverlayService.getCyclonNode().createNewPointer()
-        })
-        .success(function() {
-            $log.info("Reported stats for analysis");
-        })
-        .error(function(err) {
-            $log.warn("An error occurred dumping the stats", err);
-        });
-    }, REPORTING_INTERVAL_MS);
+    if (!$scope.browserIsUnsupported) {
+        /**
+         * Start the overlay
+         */
+        $log.info("Cyclon demo starting...");
+        OverlayService.start();
+
+        /**
+         * Periodically publish the local node state (for analysis)
+         */
+        $interval(function () {
+            $http.post('http://cyclon-datastore.appspot.com/dumpstats', {
+                neighbours: $scope.cacheContents,
+                node: OverlayService.getCyclonNode().createNewPointer()
+            })
+                .success(function () {
+                    $log.info("Reported stats for analysis");
+                })
+                .error(function (err) {
+                    $log.warn("An error occurred dumping the stats", err);
+                });
+        }, REPORTING_INTERVAL_MS);
+    }
 }
 
 module.exports = DemoPageController;

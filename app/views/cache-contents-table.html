@@ -1,19 +1,13 @@
-<table class="cacheTable table table-striped">
+<table class="table table-striped">
     <thead>
         <tr>
-            <th></th><th>Node ID</th><th>Info</th><th>Age</th><th>Browser</th><th>Success Rate (in)</th><th>Success Rate (out)</th><th>Version</th>
+            <th>Node</th><th>Cache Age</th>
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="(neighbourId, neighbour) in neighbourSet">
-            <td class="cacheLocation"><img src="flags/blank.gif" class="flag flag-{{ neighbour.metadata.location.country_code | lowercase }} "/></td>
-            <td class="cacheId">{{ neighbour.id }}</td>
-            <td>{{ neighbour.metadata.clientInfo }}</td>
-            <td class="cacheAge">{{ neighbour.age }}</td>
-            <td>{{ neighbour.metadata.platform && (neighbour.metadata.platform.name + ' ' + neighbour.metadata.platform.version + ' (' + neighbour.metadata.platform.os + ')') }}</td>
-            <td>{{ neighbour.metadata.shuffleStats | incomingsuccessrate }}</td>
-            <td>{{ neighbour.metadata.shuffleStats | outgoingsuccessrate }}</td>
-            <td>{{ neighbour.metadata.frontendVersion }}</td>
+        <tr ng-repeat="(neighbourId, neighbour) in neighbourSet track by neighbourId">
+            <td><node-info node="neighbour" /></td>
+            <td>{{ neighbour.age }}</td>
         </tr>
     </tbody>
 </table>

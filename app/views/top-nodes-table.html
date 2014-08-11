@@ -1,0 +1,13 @@
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Node</th><th>Running For</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="node in leaders track by node.id">
+            <td><node-info node="node" /></td>
+            <td>{{ node | runningTime }}</td>
+        </tr>
+    </tbody>
+</table>

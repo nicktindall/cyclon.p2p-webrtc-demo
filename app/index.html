@@ -6,6 +6,8 @@
     <link href="flags/flags.css" rel="stylesheet" type="text/css"/>
     <link href="styles/demostyles.css" rel="stylesheet" type="text/css"/>
     <link href="styles/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <script src="thirdparty/angular.min.js"></script>
+    <script src="thirdparty/ui-bootstrap-tpls-0.11.0.min.js"></script>
     <script src="thirdparty/adapter.js"></script>
     <script src="cyclondemo.js"></script>
     <script>
@@ -37,6 +39,10 @@
         (your version: {{ newerVersionDetected.localVersion }}, their version: {{ newerVersionDetected.remoteVersion }})<br/><br/>
         Reloading in {{ newerVersionDetected.secondsTilReload }} seconds.
     </div>
+    <div class="alert alert-danger" ng-if="browserIsUnsupported">
+        It appears as though the browser you are using is unsupported. WebRTC is a relatively new feature and only available
+        in recent versions of Firefox and Chrome. Please try again in one of those browsers.
+    </div>
     <br/>
 
     <form class="form-horizontal" role="form">
@@ -58,11 +64,9 @@
         </div>
     </form>
 
-
-
     <div class="row">
         <div class="col-sm-6">
-            <h3>Stats (last hour)</h3>
+            <h3>Local shuffle stats (last hour)</h3>
             <table class="table">
                 <tr>
                     <th></th>
@@ -97,7 +101,7 @@
             </table>
         </div>
         <div class="col-sm-6">
-            <h3>Info</h3>
+            <h3>Local info</h3>
             <table class="table">
                 <tr><th>Last successful incoming shuffle</th><td>{{ lastSuccessfulIncomingShuffle | date:'medium' }}</td></tr>
                 <tr><th>Last successful outgoing shuffle</th><td>{{ lastSuccessfulOutgoingShuffle | date:'medium' }}</td></tr>
@@ -108,9 +112,16 @@
         </div>
     </div>
 
-    <h3>Cache contents</h3>
-
-    <cache-contents-table cache="cacheContents"/>
+    <div class="row">
+        <div class="col-sm-6">
+            <h3>Cache contents</h3>
+            <cache-contents-table cache="cacheContents"/>
+        </div>
+        <div class="col-sm-6">
+            <h3>Longest running nodes encountered (last hour)</h3>
+            <top-nodes-table leaders="topNodes" myId="overlayNodeId"/>
+        </div>
+    </div>
 </div>
 
 </body>

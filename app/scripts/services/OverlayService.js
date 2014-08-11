@@ -3,16 +3,19 @@
 var cyclonWebRtc = require("cyclon.p2p-rtc-comms");
 var Utils = require("cyclon.p2p-common");
 
-function OverlayService($log, $rootScope, guidService, frontendVersionService, locationProviderService, platformDetectionService, clientInfoService, shuffleStatsService) {
+function OverlayService($log, $rootScope, guidService, frontendVersionService, locationProviderService,
+                        platformDetectionService, clientInfoService, shuffleStatsService,
+                        sessionInformationService) {
 
-    Utils.checkArguments(arguments, 8);
+    Utils.checkArguments(arguments, 9);
 
     var metadataProviders = {
         "location": locationProviderService.getLocation,
         "frontendVersion": frontendVersionService.getVersion,
         "platform": platformDetectionService.getPlatformInfo,
         "shuffleStats": shuffleStatsService.getStats,
-        "clientInfo": clientInfoService.getClientInfo
+        "clientInfo": clientInfoService.getClientInfo,
+        "sessionInfo": sessionInformationService.getMetadata
     };
 
     var cyclonNode = cyclonWebRtc.create($log, metadataProviders, JSON.parse('/* @echo SIGNALLING_SERVERS */'));
