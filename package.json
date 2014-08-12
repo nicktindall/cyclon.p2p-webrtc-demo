@@ -37,10 +37,10 @@
   },
   "dependencies": {
     "bowser": "0.7.x",
-    "cyclon.p2p": "0.1.2",
+    "cyclon.p2p": "0.1.3",
     "cyclon.p2p-common": "0.0.1",
     "cyclon.p2p-rtc-client": "0.1.6",
-    "cyclon.p2p-rtc-comms": "0.1.6",
+    "cyclon.p2p-rtc-comms": "0.1.8",
     "events": "1.0.x",
     "express": "4.4.x",
     "gauss": "0.2.x"
