@@ -63,11 +63,15 @@ function RankingService($rootScope, $interval, OverlayService, SessionInformatio
         pruneOldNodes();
         var sortedPeerNodes = Object.keys(witnessedPeers).concat([myId]).sort(function(idOne, idTwo) {
             return getStartTime(idOne) - getStartTime(idTwo);
-        }).map(getNodePointer).slice(0, 20);
+        }).map(getNodePointer).slice(0, 20).map(copy);
 
         $rootScope.$broadcast("rankingsUpdated", sortedPeerNodes);
 
     }, 60000);
+
+    function copy(node) {
+        return JSON.parse(JSON.stringify(node));
+    }
 }
 
 module.exports = RankingService;

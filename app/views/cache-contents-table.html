@@ -5,7 +5,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="(neighbourId, neighbour) in neighbourSet">
+        <tr ng-repeat="(neighbourId, neighbour) in neighbourSet track by neighbour.id+'-'+neighbour.seq">
             <td><node-info node="neighbour" /></td>
             <td>{{ neighbour.age }}</td>
         </tr>
