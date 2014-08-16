@@ -12,6 +12,7 @@ var VersionCheckService = require("./services/VersionCheckService");
 var RTCService = require("./services/RTCService");
 var SessionInformationService = require("./services/SessionInformationService");
 var RankingService = require("./services/RankingService");
+var StorageService = require("./services/StorageService");
 
 var DemoPageController = require("./controllers/DemoPageController");
 var LocalSimulationController = require("./controllers/LocalSimulationController");
@@ -33,22 +34,23 @@ appModule.filter("outgoingSuccessRate", OutgoingSuccessRateFilter);
 appModule.filter("idOrInfo", IdOrInfoFilter);
 appModule.filter("runningTime", ["SessionInformationService", RunningTimeFilter]);
 appModule.factory("ShuffleStatsService", ["$rootScope", ShuffleStatsService]);
-appModule.factory("SessionInformationService", SessionInformationService);
+appModule.factory("SessionInformationService", ["StorageService", SessionInformationService]);
 appModule.factory("RankingService", ["$rootScope", "$interval", "OverlayService", "SessionInformationService", RankingService]);
 appModule.factory("FrontendVersionService", FrontendVersionService);
 appModule.factory("GuidService", GuidService);
-appModule.factory("OverlayService", ["$log", "$rootScope", "GuidService", "FrontendVersionService", "LocationProviderService", "PlatformDetectionService", "ClientInfoService", "ShuffleStatsService", "SessionInformationService", OverlayService]);
+appModule.factory("OverlayService", ["$log", "$rootScope", "GuidService", "FrontendVersionService", "LocationProviderService", "PlatformDetectionService", "ClientInfoService", "ShuffleStatsService", "SessionInformationService", "StorageService", OverlayService]);
 appModule.factory("LocalSimulationService", ['$log', '$interval', LocalSimulationService]);
 appModule.factory("LocationProviderService", ["$log", "$http", LocationProviderService]);
 appModule.factory("PlatformDetectionService", PlatformDetectionService);
-appModule.factory("ClientInfoService", ClientInfoService);
+appModule.factory("ClientInfoService", ["StorageService", ClientInfoService]);
 appModule.factory("VersionCheckService", ["$rootScope", "$interval", "$http", "$log", "FrontendVersionService", VersionCheckService]);
-appModule.factory("RTCService", ["$log", RTCService]);
+appModule.factory("RTCService", ["$log", "StorageService", RTCService]);
+appModule.factory("StorageService", StorageService);
 
 appModule.directive("cacheContentsTable", CacheContentsTable);
 appModule.directive("nodeInfo", NodeInfo);
 appModule.directive("topNodesTable", TopNodesTable);
-appModule.controller("DemoPageController", ['$http', '$interval', '$log', '$scope', "OverlayService", "ClientInfoService", "VersionCheckService", "RankingService", DemoPageController]);
+appModule.controller("DemoPageController", ['$http', '$interval', '$log', '$scope', "OverlayService", "ClientInfoService", "VersionCheckService", "RankingService", "StorageService", DemoPageController]);
 appModule.controller("LocalSimulationController", ['LocalSimulationService', LocalSimulationController]);
 appModule.controller("ConnectivityTestController", ["$timeout", "$scope", "RTCService", ConnectivityTestController]);
 

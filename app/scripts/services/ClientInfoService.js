@@ -1,6 +1,6 @@
 'use strict';
 
-function ClientInfoService() {
+function ClientInfoService(StorageService) {
 
     var infoKey = "cyclonDemoClientInfo";
     var neighbourCacheKey = "cyclonDemoNeighbourCacheKey";
@@ -8,20 +8,20 @@ function ClientInfoService() {
     return {
 
         getClientInfo: function () {
-            return sessionStorage.getItem(infoKey);
+            return StorageService.getItem(infoKey);
         },
 
         setClientInfo: function (value) {
-            sessionStorage.setItem(infoKey, value);
+            StorageService.setItem(infoKey, value);
         },
 
         getStoredNeighbourCache: function() {
-            var storedValue = sessionStorage.getItem(neighbourCacheKey);
+            var storedValue = StorageService.getItem(neighbourCacheKey);
             return storedValue ? JSON.parse(storedValue) : null;
         },
 
         setStoredNeighbourCache: function(value) {
-            sessionStorage.setItem(neighbourCacheKey, JSON.stringify(value));
+            StorageService.setItem(neighbourCacheKey, JSON.stringify(value));
         }
     };
 }

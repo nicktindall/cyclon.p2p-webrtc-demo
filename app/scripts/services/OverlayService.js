@@ -5,9 +5,9 @@ var Utils = require("cyclon.p2p-common");
 
 function OverlayService($log, $rootScope, guidService, frontendVersionService, locationProviderService,
                         platformDetectionService, clientInfoService, shuffleStatsService,
-                        sessionInformationService) {
+                        sessionInformationService, Storage) {
 
-    Utils.checkArguments(arguments, 9);
+    Utils.checkArguments(arguments, 10);
 
     var metadataProviders = {
         "location": locationProviderService.getLocation,
@@ -18,7 +18,7 @@ function OverlayService($log, $rootScope, guidService, frontendVersionService, l
         "sessionInfo": sessionInformationService.getMetadata
     };
 
-    var cyclonNode = cyclonWebRtc.create($log, metadataProviders, JSON.parse('/* @echo SIGNALLING_SERVERS */'));
+    var cyclonNode = cyclonWebRtc.create($log, metadataProviders, JSON.parse('/* @echo SIGNALLING_SERVERS */'), Storage);
     var id = cyclonNode.getId();
 
     var neighbourSet = cyclonNode.getNeighbourSet();

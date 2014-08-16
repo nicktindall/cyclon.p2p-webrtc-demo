@@ -2,12 +2,12 @@
 
 var STARTED_TIME_STORAGE_KEY = "cyclonDemo-RankingService-startedTime";
 
-function SessionInformationService() {
+function SessionInformationService(StorageService) {
 
-    var startedTimeInUTC = sessionStorage.getItem(STARTED_TIME_STORAGE_KEY);
+    var startedTimeInUTC = StorageService.getItem(STARTED_TIME_STORAGE_KEY);
     if (startedTimeInUTC == null) {
         startedTimeInUTC = currentTimeInUTC();
-        sessionStorage.setItem(STARTED_TIME_STORAGE_KEY, startedTimeInUTC);
+        StorageService.setItem(STARTED_TIME_STORAGE_KEY, startedTimeInUTC);
     }
 
     function currentTimeInUTC() {
@@ -16,11 +16,11 @@ function SessionInformationService() {
     }
 
     return {
-        getStartTime: function() {
+        getStartTime: function () {
             return startedTimeInUTC;
         },
 
-        getMetadata: function() {
+        getMetadata: function () {
             return {
                 startTime: startedTimeInUTC
             }
