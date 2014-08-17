@@ -1,5 +1,8 @@
 'use strict';
 
+var rtc = require("cyclon.p2p-rtc-client");
+var Utils = require("cyclon.p2p-common");
+
 var LocalSimulationService = require("./services/LocalSimulationService");
 var GuidService = require("./services/GuidService");
 var OverlayService = require("./services/OverlayService");
@@ -29,6 +32,17 @@ var RunningTimeFilter = require("./filters/RunningTimeFilter");
 
 var appModule = angular.module("cyclon-demo", ["ui.bootstrap"]);
 
+appModule.constant("IceServers", [
+    // The Google STUN server
+    {urls: ['stun:stun.l.google.com:19302']},
+    // Turn over TCP on port 80 for networks with totalitarian security regimes
+    {urls: ['turn:54.187.115.223:80?transport=tcp'], username: 'cyclonjsuser', credential: 'sP4zBGasNVKI'}
+]);
+
+appModule.constant("SignallingServers",
+    JSON.parse('/* @echo SIGNALLING_SERVERS */')
+);
+
 appModule.filter("incomingSuccessRate", IncomingSuccessRateFilter);
 appModule.filter("outgoingSuccessRate", OutgoingSuccessRateFilter);
 appModule.filter("idOrInfo", IdOrInfoFilter);
@@ -38,13 +52,13 @@ appModule.factory("SessionInformationService", ["StorageService", SessionInforma
 appModule.factory("RankingService", ["$rootScope", "$interval", "OverlayService", "SessionInformationService", RankingService]);
 appModule.factory("FrontendVersionService", FrontendVersionService);
 appModule.factory("GuidService", GuidService);
-appModule.factory("OverlayService", ["$log", "$rootScope", "GuidService", "FrontendVersionService", "LocationProviderService", "PlatformDetectionService", "ClientInfoService", "ShuffleStatsService", "SessionInformationService", "StorageService", OverlayService]);
+appModule.factory("OverlayService", ["$log", "$rootScope", "GuidService", "FrontendVersionService", "LocationProviderService", "PlatformDetectionService", "ClientInfoService", "ShuffleStatsService", "SessionInformationService", "StorageService",  "IceServers", "SignallingServers", OverlayService]);
 appModule.factory("LocalSimulationService", ['$log', '$interval', LocalSimulationService]);
 appModule.factory("LocationProviderService", ["$log", "$http", LocationProviderService]);
 appModule.factory("PlatformDetectionService", PlatformDetectionService);
 appModule.factory("ClientInfoService", ["StorageService", ClientInfoService]);
 appModule.factory("VersionCheckService", ["$rootScope", "$interval", "$http", "$log", "FrontendVersionService", VersionCheckService]);
-appModule.factory("RTCService", ["$log", "StorageService", RTCService]);
+appModule.factory("RTCService", ["$log", "StorageService", "IceServers", "SignallingServers", RTCService]);
 appModule.factory("StorageService", StorageService);
 
 appModule.directive("cacheContentsTable", CacheContentsTable);
@@ -55,10 +69,10 @@ appModule.controller("LocalSimulationController", ['LocalSimulationService', Loc
 appModule.controller("ConnectivityTestController", ["$timeout", "$scope", "RTCService", ConnectivityTestController]);
 
 // Disable debug, its very noisy
-appModule.config(["$logProvider", function($logProvider) {
+appModule.config(["$logProvider", function ($logProvider) {
     $logProvider.debugEnabled(false);
 }]);
 
-angular.element(document).ready(function() {
+angular.element(document).ready(function () {
     angular.bootstrap(document, ['cyclon-demo']);
 });
