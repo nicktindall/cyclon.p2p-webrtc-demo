@@ -1,11 +1,16 @@
 'use strict';
 
-var cyclonWebRtc = require("cyclon.p2p-rtc-comms");
+var cyclon = require("cyclon.p2p");
 var Utils = require("cyclon.p2p-common");
 
-function OverlayService($log, $rootScope, guidService, frontendVersionService, locationProviderService,
+var CACHE_SIZE = 20;
+var BOOTSTRAP_SIZE = 1;
+var SHUFFLE_SIZE = 5;
+var TICK_INTERVAL_MS = 30000;
+
+function OverlayService($log, $rootScope, frontendVersionService, locationProviderService,
                         platformDetectionService, clientInfoService, shuffleStatsService,
-                        sessionInformationService, Storage, IceServers, SignallingServers) {
+                        sessionInformationService, Storage, Comms, Bootstrap, AsyncExecService) {
 
     Utils.checkArguments(arguments, 12);
 
@@ -18,7 +23,8 @@ function OverlayService($log, $rootScope, guidService, frontendVersionService, l
         "sessionInfo": sessionInformationService.getMetadata
     };
 
-    var cyclonNode = cyclonWebRtc.create($log, metadataProviders, SignallingServers, IceServers, Storage);
+    var neighbourSet = new cyclon.NeighbourSet($log);
+    var cyclonNode = new cyclon.CyclonNode(neighbourSet, CACHE_SIZE, BOOTSTRAP_SIZE, SHUFFLE_SIZE, Comms, Bootstrap, TICK_INTERVAL_MS, metadataProviders, AsyncExecService, $log, Storage);
     var id = cyclonNode.getId();
 
     var neighbourSet = cyclonNode.getNeighbourSet();
