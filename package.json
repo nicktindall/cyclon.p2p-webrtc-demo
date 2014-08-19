@@ -33,14 +33,15 @@
     "gulp-clean": "0.3.x",
     "gulp-insert": "0.3.x",
     "gulp-preprocess": "1.1.x",
-    "gulp-uglify": "0.3.x"
+    "gulp-uglify": "0.3.x",
+    "rimraf": "2.2.x"
   },
   "dependencies": {
     "bowser": "0.7.x",
-    "cyclon.p2p": "0.1.4",
-    "cyclon.p2p-common": "0.0.2",
-    "cyclon.p2p-rtc-client": "0.1.9",
-    "cyclon.p2p-rtc-comms": "0.1.11",
+    "cyclon.p2p": "0.1.6",
+    "cyclon.p2p-common": "0.0.3",
+    "cyclon.p2p-rtc-client": "0.1.11",
+    "cyclon.p2p-rtc-comms": "0.1.14",
     "events": "1.0.x",
     "express": "4.4.x",
     "gauss": "0.2.x"

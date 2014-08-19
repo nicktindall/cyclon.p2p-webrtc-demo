@@ -36,7 +36,7 @@ rtcModule.factory("SocketFactory", construct(rtc.SocketFactory));
 rtcModule.factory("TimingService", construct(rtc.TimingService));
 
 /**
- * Config below here
+ * RTC Config here
  */
 rtcModule.constant("IceServers", [
     // The Google STUN server

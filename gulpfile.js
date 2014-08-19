@@ -5,13 +5,14 @@ var clean = require('gulp-clean');
 var insert = require('gulp-insert');
 var preprocess = require('gulp-preprocess');
 var fs = require('fs');
+var rimraf = require('rimraf');
 
 var DIST = "./dist";
-var DIST_SRC = "./dist/source";
+var DIST_SRC = DIST + "/source";
 var signallingServerArray = JSON.stringify(JSON.parse(fs.readFileSync('./localsignalling.json')));
 
-gulp.task('clean', function() {
-    return gulp.src(DIST).pipe(clean());
+gulp.task('clean', function(cb) {
+    return rimraf(DIST, cb);
 });
 
 gulp.task('static', ['clean'], function() {

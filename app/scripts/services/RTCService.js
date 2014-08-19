@@ -9,8 +9,9 @@ function RTCService(RTC, $log) {
     Utils.checkArguments(arguments, 2);
 
     RTC.connect();
-    RTC.onChannel(TEST_CHANNEL_TYPE, function() {
+    RTC.onChannel(TEST_CHANNEL_TYPE, function(channel) {
         $log.log("Test channel was established!");
+        channel.close();
     });
 
     return {
