@@ -4,7 +4,7 @@ var cyclon = require("cyclon.p2p");
 var Utils = require("cyclon.p2p-common");
 
 var CACHE_SIZE = 20;
-var BOOTSTRAP_SIZE = 1;
+var BOOTSTRAP_SIZE = 5;
 var SHUFFLE_SIZE = 5;
 var TICK_INTERVAL_MS = 30000;
 
