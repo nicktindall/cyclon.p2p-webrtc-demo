@@ -20,10 +20,12 @@ function ConnectivityTestController($timeout, $scope, RTCService) {
 
         if (remotePeer) {
             $scope.log.push("Connecting to " + remotePeer.id);
+            var startTime = new Date().getTime();
             RTCService.connectToRemotePeer(remotePeer)
                 .then(function () {
                     $scope.$apply(function () {
-                        $scope.log.push("Connected to " + remotePeer.id);
+                        var now = new Date().getTime();
+                        $scope.log.push("Connected to " + remotePeer.id + " in " + (now - startTime) + "ms");
                     });
                 })
                 .catch(function (e) {
@@ -40,7 +42,7 @@ function ConnectivityTestController($timeout, $scope, RTCService) {
         });
     });
 
-    $scope.clearLogs = function() {
+    $scope.clearLogs = function () {
         $scope.log = [];
     };
 

@@ -4,5 +4,5 @@
 	Application-wide metadata is stored here for reuse
 */
 module.exports = {
-	FRONTEND_VERSION: 37
+	FRONTEND_VERSION: 38
 };
