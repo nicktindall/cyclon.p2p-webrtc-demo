@@ -77,6 +77,8 @@ var ConnectivityTestController = require("./controllers/ConnectivityTestControll
 var CacheContentsTable = require("./directives/CacheContentsTable");
 var NodeInfo = require("./directives/NodeInfo");
 var TopNodesTable = require("./directives/TopNodesTable");
+var LocalNodePointerPanel = require("./directives/LocalNodePointerPanel");
+var RemoteNodePointerPanel = require("./directives/RemoteNodePointerPanel");
 
 var OutgoingSuccessRateFilter = require("./filters/OutgoingSuccessRateFilter");
 var IncomingSuccessRateFilter = require("./filters/IncomingSuccessRateFilter");
@@ -102,11 +104,13 @@ appModule.factory("LocationProviderService", ["$log", "$http", LocationProviderS
 appModule.factory("PlatformDetectionService", PlatformDetectionService);
 appModule.factory("ClientInfoService", ["StorageService", ClientInfoService]);
 appModule.factory("VersionCheckService", ["$rootScope", "$interval", "$http", "$log", "FrontendVersionService", VersionCheckService]);
-appModule.factory("RTCService", ["RTC", "$log", RTCService]);
+appModule.factory("RTCService", ["RTC", "$log", "$rootScope", RTCService]);
 
 appModule.directive("cacheContentsTable", CacheContentsTable);
 appModule.directive("nodeInfo", NodeInfo);
 appModule.directive("topNodesTable", TopNodesTable);
+appModule.directive("localNodePointerPanel", LocalNodePointerPanel);
+appModule.directive("remoteNodePointerPanel", RemoteNodePointerPanel);
 appModule.controller("DemoPageController", ['$http', '$interval', '$log', '$scope', "OverlayService", "ClientInfoService", "VersionCheckService", "RankingService", "StorageService", DemoPageController]);
 appModule.controller("LocalSimulationController", ['LocalSimulationService', LocalSimulationController]);
 appModule.controller("ConnectivityTestController", ["$timeout", "$scope", "RTCService", ConnectivityTestController]);

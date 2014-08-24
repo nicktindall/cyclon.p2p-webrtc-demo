@@ -4,14 +4,19 @@ var TEST_CHANNEL_TYPE = "testChannel";
 
 var Utils = require("cyclon.p2p-common");
 
-function RTCService(RTC, $log) {
+function RTCService(RTC, $log, $rootScope) {
 
-    Utils.checkArguments(arguments, 2);
+    Utils.checkArguments(arguments, 3);
 
     RTC.connect();
     RTC.onChannel(TEST_CHANNEL_TYPE, function(channel) {
-        $log.log("Test channel was established!");
-        channel.close();
+        try {
+            $log.log("Test channel was established!");
+            $rootScope.$broadcast("connectivityTest-incomingConnection", channel.getRemotePeer());
+        }
+        finally {
+            channel.close();
+        }
     });
 
     return {
@@ -20,7 +25,7 @@ function RTCService(RTC, $log) {
         },
 
         connectToRemotePeer: function(remotePointer) {
-            RTC.openChannel(TEST_CHANNEL_TYPE, remotePointer);
+            return RTC.openChannel(TEST_CHANNEL_TYPE, remotePointer);
         }
     }
 }

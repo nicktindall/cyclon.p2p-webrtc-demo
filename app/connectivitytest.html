@@ -34,20 +34,26 @@
 <div class="container" ng-controller="ConnectivityTestController">
     <h2>WebRTC Connectivity Check</h2>
 
+    <div class="row">
+        <div class="col-sm-6">
+            <local-node-pointer-panel content="localPointer"></local-node-pointer-panel>
+        </div>
+
+        <div class="col-sm-6">
+            <remote-node-pointer-panel content="remotePointer"></remote-node-pointer-panel>
+            <button type="button" class="btn btn-success" ng-click="connectTo()">Connect</button>
+            &nbsp;<button type="button" class="btn btn-info" ng-click="refreshLocalPointer()">Refresh local</button>
+        </div>
+    </div>
 
     <div class="row">
         <div class="col-sm-12">
-            <div width="100%">
-                <h3>Local Pointer</h3>
-                <textarea type="text" cols="30" rows="5" readonly="readonly">{{ localPointer }}</textarea>
+            <div class="panel panel-default">
+                <div class="panel-heading">Logs (<a href="javascript:void(0)" ng-click="clearLogs()">Clear</a>)</div>
+                <div class="panel-body">
+                    <textarea class="form-control" cols="30" rows="10" readonly="readonly">{{ log.join('\n') }}</textarea>
+                </div>
             </div>
-
-            <div width="100%">
-                <h3>Remote Pointer</h3>
-                <textarea type="text" cols="30" rows="5" ng-model="remotePointer"></textarea>
-            </div>
-
-            <button ng-click="connectTo()">Connect...</button>&nbsp;<button ng-click="refreshLocalPointer()">Refresh local</button>
         </div>
     </div>
 
