@@ -22,11 +22,12 @@ function construct(constructor) {
  */
 var rtcModule = angular.module("cyclon-rtc", []);
 
-rtcModule.factory("RTC", ["SignallingService", "ChannelFactory", construct(rtc.RTC)]);
-rtcModule.factory("ChannelFactory", ["AsyncExecService", "PeerConnectionFactory", "SignallingService", "$log", construct(rtc.ChannelFactory)]);
-rtcModule.factory("PeerConnectionFactory", ["RTCObjectFactory", "AsyncExecService", "$log", "IceServers", construct(rtc.PeerConnectionFactory)]);
+rtcModule.factory("RTC", ["IceCandidateBatchingSignallingService", "ChannelFactory", construct(rtc.RTC)]);
+rtcModule.factory("ChannelFactory", ["PeerConnectionFactory", "IceCandidateBatchingSignallingService", "$log", construct(rtc.ChannelFactory)]);
+rtcModule.factory("PeerConnectionFactory", ["RTCObjectFactory", "$log", "IceServers", "ChannelStateTimeout", construct(rtc.PeerConnectionFactory)]);
 rtcModule.factory("RTCObjectFactory", ["$log", construct(rtc.AdapterJsRTCObjectFactory)]);
 rtcModule.factory("AsyncExecService", Utils.asyncExecService);
+rtcModule.factory("IceCandidateBatchingSignallingService", ["AsyncExecService", "SignallingService", "IceCandidateQuietPeriod", construct(rtc.IceCandidateBatchingSignallingService)]);
 rtcModule.factory("SignallingService", ["SignallingSocket", "$log", "HttpRequestService", "StorageService", construct(rtc.SocketIOSignallingService)]);
 rtcModule.factory("SignallingSocket", ["SignallingServerService", "SocketFactory", "$log", "AsyncExecService", "StorageService", "TimingService", construct(rtc.RedundantSignallingSocket)]);
 rtcModule.factory("HttpRequestService", construct(rtc.HttpRequestService));
@@ -45,6 +46,8 @@ rtcModule.constant("IceServers", [
     {urls: ['turn:54.187.115.223:80?transport=tcp'], username: 'cyclonjsuser', credential: 'sP4zBGasNVKI'}
 ]);
 rtcModule.constant("SignallingServers", JSON.parse('/* @echo SIGNALLING_SERVERS */'));
+rtcModule.constant("ChannelStateTimeout", 30000);
+rtcModule.constant("IceCandidateQuietPeriod", 300);
 
 /**
  * RTC Comms Module
