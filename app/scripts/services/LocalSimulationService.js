@@ -7,7 +7,7 @@ var Utils = require("cyclon.p2p-common");
 /**
  * Starts a local simulation
  */
-function LocalSimulationService($log, $interval) {
+function LocalSimulationService($rootScope, $log, $interval) {
 
     function startSimulation(numNodes, cacheSize, shuffleLength, tickIntervalMs) {
         var allNodes = {};
@@ -67,6 +67,12 @@ function LocalSimulationService($log, $interval) {
 
             var statsVector = new window.gauss.Vector(countsArray);
 
+            $rootScope.$broadcast("localSimulationStats", {
+                round: round,
+                inboundMean: statsVector.mean(),
+                inboundStdDev: statsVector.stdev(),
+                orphans: orphanCount
+            });
             $log.info(round + ": Mean inbound = " + statsVector.mean() + ", st.dev = " + statsVector.stdev() + ", orphans: " + orphanCount);
         }
 

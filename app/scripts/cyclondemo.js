@@ -102,7 +102,7 @@ appModule.factory("OverlayService", ["$log", "$rootScope", "FrontendVersionServi
     "LocationProviderService", "PlatformDetectionService", "ClientInfoService",
     "ShuffleStatsService", "SessionInformationService", "StorageService",
     "Comms", "Bootstrap", "AsyncExecService", OverlayService]);
-appModule.factory("LocalSimulationService", ['$log', '$interval', LocalSimulationService]);
+appModule.factory("LocalSimulationService", ['$rootScope', '$log', '$interval', LocalSimulationService]);
 appModule.factory("LocationProviderService", ["$log", "$http", LocationProviderService]);
 appModule.factory("PlatformDetectionService", PlatformDetectionService);
 appModule.factory("ClientInfoService", ["StorageService", ClientInfoService]);
@@ -115,7 +115,7 @@ appModule.directive("topNodesTable", TopNodesTable);
 appModule.directive("localNodePointerPanel", LocalNodePointerPanel);
 appModule.directive("remoteNodePointerPanel", RemoteNodePointerPanel);
 appModule.controller("DemoPageController", ['$http', '$interval', '$log', '$scope', "OverlayService", "ClientInfoService", "VersionCheckService", "RankingService", "StorageService", DemoPageController]);
-appModule.controller("LocalSimulationController", ['LocalSimulationService', LocalSimulationController]);
+appModule.controller("LocalSimulationController", ['$scope', 'LocalSimulationService', LocalSimulationController]);
 appModule.controller("ConnectivityTestController", ["$timeout", "$scope", "RTCService", ConnectivityTestController]);
 
 // Disable debug, its very noisy
