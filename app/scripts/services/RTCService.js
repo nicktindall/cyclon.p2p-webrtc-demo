@@ -25,7 +25,10 @@ function RTCService(RTC, $log, $rootScope) {
         },
 
         connectToRemotePeer: function(remotePointer) {
-            return RTC.openChannel(TEST_CHANNEL_TYPE, remotePointer);
+            return RTC.openChannel(TEST_CHANNEL_TYPE, remotePointer)
+                .then(function(channel) {
+                    channel.close();
+                });
         }
     }
 }
