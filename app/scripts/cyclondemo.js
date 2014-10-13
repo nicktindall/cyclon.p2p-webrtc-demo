@@ -6,35 +6,24 @@ var rtcComms = require("cyclon.p2p-rtc-comms");
 var Utils = require("cyclon.p2p-common");
 var StorageService = require("./services/StorageService");
 
-function construct(constructor) {
-    return function() {
-        var args = arguments;
-        function F() {
-            return constructor.apply(this, args);
-        }
-        F.prototype = constructor.prototype;
-        return new F();
-    }
-}
-
 /**
  * RTC Module
  */
 var rtcModule = angular.module("cyclon-rtc", []);
 
-rtcModule.factory("RTC", ["IceCandidateBatchingSignallingService", "ChannelFactory", construct(rtc.RTC)]);
-rtcModule.factory("ChannelFactory", ["PeerConnectionFactory", "IceCandidateBatchingSignallingService", "$log", construct(rtc.ChannelFactory)]);
-rtcModule.factory("PeerConnectionFactory", ["RTCObjectFactory", "$log", "IceServers", "ChannelStateTimeout", construct(rtc.PeerConnectionFactory)]);
-rtcModule.factory("RTCObjectFactory", ["$log", construct(rtc.AdapterJsRTCObjectFactory)]);
+rtcModule.service("RTC", ["IceCandidateBatchingSignallingService", "ChannelFactory", rtc.RTC]);
+rtcModule.service("ChannelFactory", ["PeerConnectionFactory", "IceCandidateBatchingSignallingService", "$log", rtc.ChannelFactory]);
+rtcModule.service("PeerConnectionFactory", ["RTCObjectFactory", "$log", "IceServers", "ChannelStateTimeout", rtc.PeerConnectionFactory]);
+rtcModule.service("RTCObjectFactory", ["$log", rtc.AdapterJsRTCObjectFactory]);
 rtcModule.factory("AsyncExecService", Utils.asyncExecService);
-rtcModule.factory("IceCandidateBatchingSignallingService", ["AsyncExecService", "SignallingService", "IceCandidateQuietPeriod", construct(rtc.IceCandidateBatchingSignallingService)]);
-rtcModule.factory("SignallingService", ["SignallingSocket", "$log", "HttpRequestService", "StorageService", construct(rtc.SocketIOSignallingService)]);
-rtcModule.factory("SignallingSocket", ["SignallingServerService", "SocketFactory", "$log", "AsyncExecService", "StorageService", "TimingService", construct(rtc.RedundantSignallingSocket)]);
-rtcModule.factory("HttpRequestService", construct(rtc.HttpRequestService));
+rtcModule.service("IceCandidateBatchingSignallingService", ["AsyncExecService", "SignallingService", "IceCandidateQuietPeriod", rtc.IceCandidateBatchingSignallingService]);
+rtcModule.service("SignallingService", ["SignallingSocket", "$log", "HttpRequestService", "StorageService", rtc.SocketIOSignallingService]);
+rtcModule.service("SignallingSocket", ["SignallingServerService", "SocketFactory", "$log", "AsyncExecService", "StorageService", "TimingService", rtc.RedundantSignallingSocket]);
+rtcModule.service("HttpRequestService", rtc.HttpRequestService);
 rtcModule.factory("StorageService", StorageService);
-rtcModule.factory("SignallingServerService", ["SignallingServers", construct(rtc.StaticSignallingServerService)]);
-rtcModule.factory("SocketFactory", construct(rtc.SocketFactory));
-rtcModule.factory("TimingService", construct(rtc.TimingService));
+rtcModule.service("SignallingServerService", ["SignallingServers", rtc.StaticSignallingServerService]);
+rtcModule.service("SocketFactory", rtc.SocketFactory);
+rtcModule.service("TimingService", rtc.TimingService);
 
 /**
  * RTC Config here
@@ -54,9 +43,9 @@ rtcModule.constant("IceCandidateQuietPeriod", 300);
  */
 var rtcCommsModule = angular.module("cyclon-rtc-comms", ["cyclon-rtc"]);
 
-rtcCommsModule.factory("Comms", ["RTC", "ShuffleStateFactory", "$log", construct(rtcComms.WebRTCComms)]);
-rtcCommsModule.factory("ShuffleStateFactory", ["$log", "AsyncExecService", construct(rtcComms.ShuffleStateFactory)]);
-rtcCommsModule.factory("Bootstrap", ["SignallingSocket", "HttpRequestService", construct(rtcComms.SignallingServerBootstrap)]);
+rtcCommsModule.service("Comms", ["RTC", "ShuffleStateFactory", "$log", rtcComms.WebRTCComms]);
+rtcCommsModule.service("ShuffleStateFactory", ["$log", "AsyncExecService", rtcComms.ShuffleStateFactory]);
+rtcCommsModule.service("Bootstrap", ["SignallingSocket", "HttpRequestService", rtcComms.SignallingServerBootstrap]);
 
 /**
  * Demo app module
