@@ -3,49 +3,25 @@
 var cyclon = require("cyclon.p2p");
 var rtc = require("cyclon.p2p-rtc-client");
 var rtcComms = require("cyclon.p2p-rtc-comms");
-var Utils = require("cyclon.p2p-common");
 var StorageService = require("./services/StorageService");
 
 /**
  * RTC Module
  */
-var rtcModule = angular.module("cyclon-rtc", []);
-
-rtcModule.service("RTC", ["IceCandidateBatchingSignallingService", "ChannelFactory", rtc.RTC]);
-rtcModule.service("ChannelFactory", ["PeerConnectionFactory", "IceCandidateBatchingSignallingService", "$log", rtc.ChannelFactory]);
-rtcModule.service("PeerConnectionFactory", ["RTCObjectFactory", "$log", "IceServers", "ChannelStateTimeout", rtc.PeerConnectionFactory]);
-rtcModule.service("RTCObjectFactory", ["$log", rtc.AdapterJsRTCObjectFactory]);
-rtcModule.factory("AsyncExecService", Utils.asyncExecService);
-rtcModule.service("IceCandidateBatchingSignallingService", ["AsyncExecService", "SignallingService", "IceCandidateQuietPeriod", rtc.IceCandidateBatchingSignallingService]);
-rtcModule.service("SignallingService", ["SignallingSocket", "$log", "HttpRequestService", "StorageService", rtc.SocketIOSignallingService]);
-rtcModule.service("SignallingSocket", ["SignallingServerService", "SocketFactory", "$log", "AsyncExecService", "StorageService", "TimingService", rtc.RedundantSignallingSocket]);
-rtcModule.service("HttpRequestService", rtc.HttpRequestService);
-rtcModule.factory("StorageService", StorageService);
-rtcModule.service("SignallingServerService", ["SignallingServers", rtc.StaticSignallingServerService]);
-rtcModule.service("SocketFactory", rtc.SocketFactory);
-rtcModule.service("TimingService", rtc.TimingService);
-
-/**
- * RTC Config here
- */
-rtcModule.constant("IceServers", [
-    // The Google STUN server
-    {urls: ['stun:stun.l.google.com:19302']},
-    // Turn over TCP on port 80 for networks with totalitarian security regimes
-    {urls: ['turn:54.187.115.223:80?transport=tcp'], username: 'cyclonjsuser', credential: 'sP4zBGasNVKI'}
-]);
-rtcModule.constant("SignallingServers", JSON.parse('/* @echo SIGNALLING_SERVERS */'));
-rtcModule.constant("ChannelStateTimeout", 30000);
-rtcModule.constant("IceCandidateQuietPeriod", 300);
+rtc.buildAngularModule(angular)
+    .factory("StorageService", StorageService)
+    .value("IceServers", [
+        // The Google STUN server
+        {urls: ['stun:stun.l.google.com:19302']},
+        // Turn over TCP on port 80 for networks with totalitarian security regimes
+        {urls: ['turn:54.187.115.223:80?transport=tcp'], username: 'cyclonjsuser', credential: 'sP4zBGasNVKI'}
+    ])
+    .value("SignallingServers", JSON.parse('/* @echo SIGNALLING_SERVERS */'));
 
 /**
  * RTC Comms Module
  */
-var rtcCommsModule = angular.module("cyclon-rtc-comms", ["cyclon-rtc"]);
-
-rtcCommsModule.service("Comms", ["RTC", "ShuffleStateFactory", "$log", rtcComms.WebRTCComms]);
-rtcCommsModule.service("ShuffleStateFactory", ["$log", "AsyncExecService", rtcComms.ShuffleStateFactory]);
-rtcCommsModule.service("Bootstrap", ["SignallingSocket", "HttpRequestService", rtcComms.SignallingServerBootstrap]);
+rtcComms.buildAngularModule(angular);
 
 /**
  * Demo app module
