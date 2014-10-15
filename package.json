@@ -38,12 +38,12 @@
   },
   "dependencies": {
     "bowser": "0.7.x",
-    "cyclon.p2p": "0.1.8",
-    "cyclon.p2p-common": "0.0.5",
-    "cyclon.p2p-rtc-client": "0.1.18",
-    "cyclon.p2p-rtc-comms": "0.1.20",
+    "cyclon.p2p": "0.1.9",
+    "cyclon.p2p-common": "0.0.6",
+    "cyclon.p2p-rtc-client": "0.1.19",
+    "cyclon.p2p-rtc-comms": "0.1.21",
     "events": "1.0.x",
-    "express": "4.4.x",
+    "express": "4.9.x",
     "gauss": "0.2.x",
     "zeroclipboard": "2.1.6"
   },
