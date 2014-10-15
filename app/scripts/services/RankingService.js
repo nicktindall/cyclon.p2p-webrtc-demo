@@ -18,31 +18,34 @@ function RankingService($rootScope, $interval, OverlayService, SessionInformatio
 
     function processNode(node) {
         var utcNow = SessionInformationService.currentTimeInUTC();
-        if(!witnessedPeers.hasOwnProperty(node.id)) {
+        if (!witnessedPeers.hasOwnProperty(node.id)) {
             // We've never seen this node before, add it to our list
             witnessedPeers[node.id] = {
                 node: node,
-                startTime: node.metadata.sessionInfo.startTime,
-                lastSeen: utcNow
+                startTime: node.metadata.sessionInfo.startTime
             };
         }
-        else {
-            // We've seen this node before, update the last-seen time
-            witnessedPeers[node.id].lastSeen = utcNow;
+
+        var witnessedPeersEntry = witnessedPeers[node.id];
+        witnessedPeersEntry.lastSeen = utcNow;
+
+        // Update the node data if its newer
+        if (witnessedPeersEntry.node.seq < node.seq) {
+            witnessedPeersEntry.node = node;
         }
     }
 
     function pruneOldNodes() {
         var oneHourAgoInUTC = SessionInformationService.currentTimeInUTC() - ONE_HOUR_IN_MS;
-        for(var nodeId in witnessedPeers) {
-            if(witnessedPeers[nodeId].lastSeen < oneHourAgoInUTC) {
+        for (var nodeId in witnessedPeers) {
+            if (witnessedPeers[nodeId].lastSeen < oneHourAgoInUTC) {
                 delete witnessedPeers[nodeId];
             }
         }
     }
 
     function getStartTime(nodeId) {
-        if(nodeId === myId) {
+        if (nodeId === myId) {
             return startTime;
         }
         else {
@@ -51,7 +54,7 @@ function RankingService($rootScope, $interval, OverlayService, SessionInformatio
     }
 
     function getNodePointer(nodeId) {
-        if(nodeId === myId) {
+        if (nodeId === myId) {
             return OverlayService.getCyclonNode().createNewPointer();
         }
         else {
@@ -59,9 +62,9 @@ function RankingService($rootScope, $interval, OverlayService, SessionInformatio
         }
     }
 
-    $interval(function() {
+    $interval(function () {
         pruneOldNodes();
-        var sortedPeerNodes = Object.keys(witnessedPeers).concat([myId]).sort(function(idOne, idTwo) {
+        var sortedPeerNodes = Object.keys(witnessedPeers).concat([myId]).sort(function (idOne, idTwo) {
             return getStartTime(idOne) - getStartTime(idTwo);
         }).map(getNodePointer).slice(0, 20).map(copy);
 
