@@ -12,9 +12,7 @@ rtc.buildAngularModule(angular)
     .factory("StorageService", StorageService)
     .value("IceServers", [
         // The Google STUN server
-        {urls: ['stun:stun.l.google.com:19302']},
-        // Turn over TCP on port 80 for networks with totalitarian security regimes
-        {urls: ['turn:54.187.115.223:80?transport=tcp'], username: 'cyclonjsuser', credential: 'sP4zBGasNVKI'}
+        {urls: ['stun:stun.l.google.com:19302']}
     ])
     .value("SignallingServers", JSON.parse('/* @echo SIGNALLING_SERVERS */'));
 
