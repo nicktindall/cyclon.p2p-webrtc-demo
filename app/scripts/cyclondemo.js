@@ -77,7 +77,7 @@ appModule.directive("nodeInfo", NodeInfo);
 appModule.directive("topNodesTable", TopNodesTable);
 appModule.directive("localNodePointerPanel", LocalNodePointerPanel);
 appModule.directive("remoteNodePointerPanel", RemoteNodePointerPanel);
-appModule.controller("DemoPageController", ['$http', '$interval', '$log', '$scope', "OverlayService", "ClientInfoService", "VersionCheckService", "RankingService", "StorageService", DemoPageController]);
+appModule.controller("DemoPageController", ['$interval', '$log', '$scope', "OverlayService", "ClientInfoService", "VersionCheckService", "RankingService", "StorageService", DemoPageController]);
 appModule.controller("LocalSimulationController", ['$scope', 'LocalSimulationService', LocalSimulationController]);
 appModule.controller("ConnectivityTestController", ["$timeout", "$scope", "RTCService", ConnectivityTestController]);
 
