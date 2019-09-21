@@ -1,7 +1,6 @@
 var gulp = require('gulp');
 var browserify = require('gulp-browserify');
-var uglify = require('gulp-uglify');
-var clean = require('gulp-clean');
+var terser = require('gulp-terser');
 var insert = require('gulp-insert');
 var preprocess = require('gulp-preprocess');
 var fs = require('fs');
@@ -32,7 +31,7 @@ function generateMinifiedScript() {
     return gulp.src("app/scripts/cyclondemo.js")
         .pipe(browserify())
         .pipe(preprocess({context: {SIGNALLING_SERVERS: signallingServerArray}}))
-        .pipe(uglify())
+        .pipe(terser())
         .pipe(insert.prepend("/**\n\tWebRTC Cyclon Demo\n\tCopyright 2014, Nick Tindall\n*/\n"))
         .pipe(gulp.dest(DIST));
 }
