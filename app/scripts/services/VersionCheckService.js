@@ -10,8 +10,8 @@ function VersionCheckService($rootScope, $interval, $http, $log, frontendVersion
 
 	$interval(function() {
 		$http.get('/version')
-			.then(function(data) {
-				var serverVersion = data.FRONTEND_VERSION;
+			.then(function(response) {
+				var serverVersion = response.data.FRONTEND_VERSION;
 
 				if(typeof(serverVersion) === "number") {
 					var localVersion = frontendVersionService.getVersion();
