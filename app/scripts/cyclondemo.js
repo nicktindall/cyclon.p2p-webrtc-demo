@@ -83,8 +83,9 @@ appModule.controller("LocalSimulationController", ['$scope', 'LocalSimulationSer
 appModule.controller("ConnectivityTestController", ["$timeout", "$scope", "RTCService", ConnectivityTestController]);
 
 // Disable debug, its very noisy
-appModule.config(["$logProvider", function ($logProvider) {
+appModule.config(["$logProvider", "$sceDelegateProvider", function ($logProvider, $sceDelegateProvider) {
     $logProvider.debugEnabled(false);
+    $sceDelegateProvider.resourceUrlWhitelist(['self', 'https://get.geojs.io/v1/ip/geo.js']);
 }]);
 
 angular.element(document).ready(function () {

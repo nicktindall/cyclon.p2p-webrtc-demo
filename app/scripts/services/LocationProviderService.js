@@ -1,20 +1,22 @@
 'use strict';
 
 /**
- * Uses freegeoip.net to try and determine the users location
+ * Uses geojs.io to try and determine the users location
  *
- * See http://www.freegeoip.net/
+ * See https://geojs.io/
  */
 function LocationProviderService($log, $http) {
 
     var location = null;
 
-    $http.jsonp("http://freegeoip.net/json/?callback=JSON_CALLBACK")
-        .then(function(data) {
-            location = data;
+    let URL = "https://get.geojs.io/v1/ip/geo.js";
+
+    $http.jsonp(URL, {jsonpCallbackParam: 'callback'})
+        .then(function(response) {
+            location = response.data;
         })
-        .catch(function(data, status) {
-            $log.error("Unable to determine location (status code "+status+")");
+        .catch(function(response) {
+            $log.error("Unable to determine location (status code "+response.status+")");
         });
 
     return {
