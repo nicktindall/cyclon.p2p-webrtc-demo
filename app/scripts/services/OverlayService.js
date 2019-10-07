@@ -1,6 +1,6 @@
 'use strict';
 
-var cyclon = require("cyclon.p2p");
+var {NeighbourSet, CyclonNodeImpl} = require("cyclon.p2p");
 var Utils = require("cyclon.p2p-common");
 
 var CACHE_SIZE = 20;
@@ -23,11 +23,9 @@ function OverlayService($log, $rootScope, frontendVersionService, locationProvid
         "sessionInfo": sessionInformationService.getMetadata
     };
 
-    var neighbourSet = new cyclon.NeighbourSet($log);
-    var cyclonNode = new cyclon.CyclonNode(neighbourSet, CACHE_SIZE, BOOTSTRAP_SIZE, SHUFFLE_SIZE, Comms, Bootstrap, TICK_INTERVAL_MS, metadataProviders, AsyncExecService, $log, Storage);
+    var neighbourSet = new NeighbourSet($log);
+    var cyclonNode = new CyclonNodeImpl(neighbourSet, CACHE_SIZE, BOOTSTRAP_SIZE, SHUFFLE_SIZE, Comms, Bootstrap, TICK_INTERVAL_MS, metadataProviders, AsyncExecService, $log);
     var id = cyclonNode.getId();
-
-    var neighbourSet = cyclonNode.getNeighbourSet();
 
     setupNeighbourCacheSessionPersistence(neighbourSet);
 

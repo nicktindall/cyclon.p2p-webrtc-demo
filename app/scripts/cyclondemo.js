@@ -1,9 +1,10 @@
 'use strict';
 
-var cyclon = require("cyclon.p2p");
-var rtc = require("cyclon.p2p-rtc-client");
-var rtcComms = require("cyclon.p2p-rtc-comms");
-var StorageService = require("./services/StorageService");
+const angular = require('angular');
+require("angular-bootstrap/ui-bootstrap-tpls");
+const rtc = require("cyclon.p2p-rtc-client");
+const rtcComms = require("cyclon.p2p-rtc-comms");
+const StorageService = require("./services/StorageService");
 
 /**
  * RTC Module
@@ -59,7 +60,7 @@ appModule.filter("idOrInfo", IdOrInfoFilter);
 appModule.filter("runningTime", ["SessionInformationService", RunningTimeFilter]);
 appModule.factory("ShuffleStatsService", ["$rootScope", ShuffleStatsService]);
 appModule.factory("SessionInformationService", ["StorageService", SessionInformationService]);
-appModule.factory("RankingService", ["$rootScope", "$interval", "OverlayService", "SessionInformationService", RankingService]);
+appModule.service("RankingService", ["$rootScope", "$interval", "OverlayService", "SessionInformationService", RankingService]);
 appModule.factory("FrontendVersionService", FrontendVersionService);
 appModule.factory("OverlayService", ["$log", "$rootScope", "FrontendVersionService",
     "LocationProviderService", "PlatformDetectionService", "ClientInfoService",
@@ -69,7 +70,7 @@ appModule.factory("LocalSimulationService", ['$rootScope', '$log', '$interval', 
 appModule.factory("LocationProviderService", ["$log", "$http", LocationProviderService]);
 appModule.factory("PlatformDetectionService", PlatformDetectionService);
 appModule.factory("ClientInfoService", ["StorageService", ClientInfoService]);
-appModule.factory("VersionCheckService", ["$rootScope", "$interval", "$http", "$log", "FrontendVersionService", VersionCheckService]);
+appModule.service("VersionCheckService", ["$rootScope", "$interval", "$http", "$log", "FrontendVersionService", VersionCheckService]);
 appModule.factory("RTCService", ["RTC", "$log", "$rootScope", RTCService]);
 
 appModule.directive("cacheContentsTable", CacheContentsTable);

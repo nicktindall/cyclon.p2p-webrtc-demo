@@ -37,11 +37,13 @@
     "rimraf": "2.2.x"
   },
   "dependencies": {
+    "angular": "^1.7.8",
+    "angular-bootstrap": "^0.12.2",
     "bowser": "0.7.x",
-    "cyclon.p2p": "^0.1.12",
-    "cyclon.p2p-common": "^0.1.1",
-    "cyclon.p2p-rtc-client": "^0.1.31",
-    "cyclon.p2p-rtc-comms": "^0.1.30",
+    "cyclon.p2p": "^0.1.18",
+    "cyclon.p2p-common": "^0.1.8",
+    "cyclon.p2p-rtc-client": "^0.1.36",
+    "cyclon.p2p-rtc-comms": "^0.1.31",
     "events": "1.0.x",
     "express": "4.9.x",
     "gauss": "0.2.x",

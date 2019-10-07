@@ -31,7 +31,7 @@ function generateMinifiedScript() {
     return gulp.src("app/scripts/cyclondemo.js")
         .pipe(browserify())
         .pipe(preprocess({context: {SIGNALLING_SERVERS: signallingServerArray}}))
-        .pipe(terser())
+        //.pipe(terser())
         .pipe(insert.prepend("/**\n\tWebRTC Cyclon Demo\n\tCopyright 2014, Nick Tindall\n*/\n"))
         .pipe(gulp.dest(DIST));
 }

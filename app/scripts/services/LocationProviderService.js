@@ -10,10 +10,10 @@ function LocationProviderService($log, $http) {
     var location = null;
 
     $http.jsonp("http://freegeoip.net/json/?callback=JSON_CALLBACK")
-        .success(function(data) {
+        .then(function(data) {
             location = data;
         })
-        .error(function(data, status) {
+        .catch(function(data, status) {
             $log.error("Unable to determine location (status code "+status+")");
         });
 
