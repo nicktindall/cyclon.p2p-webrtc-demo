@@ -1,5 +1,7 @@
 var gulp = require('gulp');
-var browserify = require('gulp-browserify');
+var browserify = require('browserify');
+var source = require('vinyl-source-stream');
+var buffer = require('vinyl-buffer');
 var terser = require('gulp-terser');
 var insert = require('gulp-insert');
 var preprocess = require('gulp-preprocess');
@@ -28,18 +30,28 @@ function copyStaticFilesTo(dest) {
 }
 
 function generateMinifiedScript() {
-    return gulp.src("app/scripts/cyclondemo.js")
-        .pipe(browserify())
+    return browserify({
+        entries: ["app/scripts/cyclondemo.js"],
+        debug: true
+    }).bundle()
+        .pipe(source('cyclondemo.js'))
+        .pipe(buffer())
         .pipe(preprocess({context: {SIGNALLING_SERVERS: signallingServerArray}}))
-        //.pipe(terser())
+        .pipe(terser())
         .pipe(insert.prepend("/**\n\tWebRTC Cyclon Demo\n\tCopyright 2014, Nick Tindall\n*/\n"))
+        .on('error', console.error)
         .pipe(gulp.dest(DIST));
 }
 
 function generateScript() {
-    return gulp.src("app/scripts/cyclondemo.js")
-        .pipe(browserify())
+    return browserify({
+        entries: ["app/scripts/cyclondemo.js"],
+        debug: true
+    }).bundle()
+        .pipe(source('cyclondemo.js'))
+        .pipe(buffer())
         .pipe(preprocess({context: {SIGNALLING_SERVERS: signallingServerArray}}))
+        .on('error', console.error)
         .pipe(gulp.dest(DIST_SRC));
 }
 

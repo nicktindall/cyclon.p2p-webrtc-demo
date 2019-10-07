@@ -28,13 +28,15 @@
     "test": "make test"
   },
   "devDependencies": {
+    "browserify": "^16.5.0",
     "gulp": "3.8.x",
-    "gulp-browserify": "0.5.x",
     "gulp-clean": "0.3.x",
     "gulp-insert": "0.3.x",
-    "gulp-preprocess": "1.1.x",
+    "gulp-preprocess": "^3.0.3",
     "gulp-terser": "^1.2.0",
-    "rimraf": "2.2.x"
+    "rimraf": "2.2.x",
+    "vinyl-buffer": "^1.0.1",
+    "vinyl-source-stream": "^2.0.0"
   },
   "dependencies": {
     "angular": "^1.7.8",
