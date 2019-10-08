@@ -1,15 +1,15 @@
 'use strict';
 
+const buildRTCClientModule = require("./modules/rtc-client-module");
+const buildRTCCommsModule = require("./modules/rtc-comms-module");
 const angular = require('angular');
 require("angular-bootstrap/ui-bootstrap-tpls");
-const rtc = require("cyclon.p2p-rtc-client");
-const rtcComms = require("cyclon.p2p-rtc-comms");
 const StorageService = require("./services/StorageService");
 
 /**
  * RTC Module
  */
-rtc.buildAngularModule(angular)
+buildRTCClientModule(angular)
     .factory("StorageService", StorageService)
     .value("IceServers", [
         // The Google STUN server
@@ -20,7 +20,7 @@ rtc.buildAngularModule(angular)
 /**
  * RTC Comms Module
  */
-rtcComms.buildAngularModule(angular);
+buildRTCCommsModule(angular);
 
 /**
  * Demo app module
