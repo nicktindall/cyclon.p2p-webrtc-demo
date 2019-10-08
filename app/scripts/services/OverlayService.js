@@ -45,7 +45,7 @@ function OverlayService($log, $rootScope, frontendVersionService, locationProvid
     cyclonNode.on("shuffleStarted", shuffleStatsService.shuffleStartedHandler);
 
     function advertiseCacheChange(type, node) {
-        $rootScope.$broadcast("cacheContentsChanged", neighbourSet.getContents());
+        $rootScope.$broadcast("cacheContentsChanged", getCacheContentsAsObject());
     }
 
     /**
@@ -79,6 +79,15 @@ function OverlayService($log, $rootScope, frontendVersionService, locationProvid
         });
     }
 
+    function getCacheContentsAsObject() {
+        return Array.from(neighbourSet.getContents().entries()).reduce(
+            (previous, next) => {
+                previous[next[0]] = next[1];
+                return previous;
+            }, {}
+        );
+    }
+
     return {
 
         /**
@@ -93,7 +102,7 @@ function OverlayService($log, $rootScope, frontendVersionService, locationProvid
         },
 
         getCacheContents: function () {
-            return neighbourSet.getContents();
+            return getCacheContentsAsObject();
         },
 
         getCyclonNode: function() {
