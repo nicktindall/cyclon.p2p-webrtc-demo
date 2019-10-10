@@ -25,7 +25,8 @@
     "url": "https://github.com/nicktindall/cyclon.p2p-webrtc-demo.git"
   },
   "scripts": {
-    "build": "gulp",
+    "build": "gulp heroku:production",
+    "build-local": "gulp",
     "test": "make test",
     "start": "node server.js"
   },
