@@ -48,7 +48,7 @@
     "cyclon.p2p": "^1.0.0",
     "cyclon.p2p-common": "^0.1.11",
     "cyclon.p2p-rtc-client": "^1.0.1",
-    "cyclon.p2p-rtc-comms": "^1.0.0",
+    "cyclon.p2p-rtc-comms": "^1.1.0",
     "events": "1.0.x",
     "express": "4.9.x",
     "gauss": "0.2.x",
