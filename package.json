@@ -50,7 +50,7 @@
     "cyclon.p2p-rtc-client": "^1.0.2",
     "cyclon.p2p-rtc-comms": "^1.1.1",
     "events": "1.0.x",
-    "express": "4.9.x",
+    "express": "4.18.x",
     "gauss": "0.2.x",
     "zeroclipboard": "2.1.6"
   },
